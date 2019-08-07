@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import CardList from "./CardList";
-import SearchBox from "./SearchBox";
-import Scroll from "./Scroll";
+import CardList from "../components/CardList";
+import SearchBox from "../components/SearchBox";
+import Scroll from "../components/Scroll";
 
 export default class App extends Component {
   state = {
