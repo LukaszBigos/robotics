@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import CardList from "./CardList";
+import SearchBox from "./SearchBox";
+import Scroll from "./Scroll";
+
+export default class App extends Component {
+  state = {
+    robots: [],
+    searchTerm: ""
+  };
+
+  componentDidMount() {
+    this.getUsers();
+    console.log(this.state.robots);
+  }
+
+  getUsers = async () => {
+    try {
+      const res = await fetch("https://api.github.com/users");
+      const data = await res.json();
+      this.setState({
+        robots: data
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  onSearchChange = e => {
+    this.setState({
+      searchTerm: e.target.value
+    });
+  };
+
+  render() {
+    const filteredRobots = this.state.robots.filter(robot => {
+      return robot.login
+        .toLowerCase()
+        .includes(this.state.searchTerm.toLowerCase());
+    });
+    if (this.state.robots.length === 0) {
+      return <h1>Loading robots...</h1>;
+    } else {
+      return (
+        <div className="app-wrapper">
+          <h1>Robotics</h1>
+          <SearchBox searchChange={this.onSearchChange} />
+          <Scroll>
+            <CardList robots={filteredRobots} />
+          </Scroll>
+        </div>
+      );
+    }
+  }
 }
-
-export default App;

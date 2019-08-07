@@ -1,0 +1,23 @@
+.single-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 7px 10px 5px 0px rgba(120, 114, 120, 1);
+  padding: 1rem;
+  margin: 2rem 1rem;
+  height: 50vh;
+  background-color: lightgreen;
+  border-radius: 1rem;
+  font-size: 1rem;
+  transition: all 0.2s linear;
+}
+
+.single-card:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.single-card h2 {
+  font-family: "Lacquer", sans-serif;
+}
